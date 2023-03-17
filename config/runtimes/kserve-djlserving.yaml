@@ -1,0 +1,30 @@
+apiVersion: serving.kserve.io/v1alpha1
+kind: ClusterServingRuntime
+metadata:
+  name: kserve-djlserving
+spec:
+  annotations:
+    prometheus.kserve.io/port: '8082'
+    prometheus.kserve.io/path: "/metrics"
+  supportedModelFormats:
+    - name: pytorch
+      version: "1"
+      autoSelect: true
+  protocolVersions:
+    - v2
+  containers:
+    - name: kserve-container
+      image: kserve-djlserving:replace
+      args:
+        - serve
+        - --model-store=/mnt/models/model-store
+        - --ts-config=/mnt/models/config/config.properties
+      resources:
+        requests:
+          nvidia.com/gpu: 8
+          cpu: "1"
+          memory: 2Gi
+        limits:
+          nvidia.com/gpu: 8
+          cpu: "1"
+          memory: 2Gi
