@@ -15,7 +15,7 @@ STORAGE_INIT_IMG ?= storage-initializer
 QPEXT_IMG ?= qpext
 CRD_OPTIONS ?= "crd:maxDescLen=0"
 KSERVE_ENABLE_SELF_SIGNED_CA ?= false
-DJLSERVING_IMG ?= djlserving:deepspeed-nightly
+DJLSERVING_IMG ?= kserve-djlserving
 # ENVTEST_K8S_VERSION refers to the version of kubebuilder assets to be downloaded by envtest binary.
 ENVTEST_K8S_VERSION = 1.24
 
@@ -116,7 +116,7 @@ deploy-dev-storageInitializer: docker-push-storageInitializer
 
 deploy-dev-djlserving:
 	./hack/model_server_patch_dev.sh djlserving deepjavalibrary/${DJLSERVING_IMG}
-	kustomize build config/overlays/dev-image-config | kubectl applu -f -
+	kustomize build config/overlays/dev-image-config | kubectl apply -f -
 
 deploy-ci: manifests
 	kubectl apply -k config/overlays/test

@@ -18,7 +18,7 @@ spec:
       args:
         - serve
         - --model-store=/mnt/models/model-store
-        - --ts-config=/mnt/models/config/config.properties
+        - --config-file=/mnt/models/config/config.properties
       resources:
         requests:
           nvidia.com/gpu: 8
