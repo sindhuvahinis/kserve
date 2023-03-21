@@ -21,10 +21,8 @@ spec:
         - --config-file=/mnt/models/config/config.properties
       resources:
         requests:
-          nvidia.com/gpu: "8"
           cpu: "1"
           memory: 2Gi
         limits:
-          nvidia.com/gpu: "8"
           cpu: "1"
           memory: 2Gi
